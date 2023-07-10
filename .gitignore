@@ -1,2 +1,4 @@
 .venv
 .pytest*
+*.cpython*
+__pycache__
