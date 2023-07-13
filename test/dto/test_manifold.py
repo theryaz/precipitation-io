@@ -27,7 +27,7 @@ class TestManifold(TestCase):
         )
 
     def test_volume_litres(self):
-        self.assertAlmostEqual(self.manifold.volume_litres, 48.85, 1)
+        self.assertAlmostEqual(self.manifold.total_volume_litres, 48.85, 1)
 
     def test_available_water_litres_full(self):
         self.manifold.percent_full = 100

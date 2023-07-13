@@ -14,8 +14,7 @@ async def hello():
     return "Hello, world!"
 
 
-data_collector = RainBarrelDataCollector(get_rain_barrel_manifold())
-data_collector.start()
-
 if __name__ == "__main__":
+    data_collector = RainBarrelDataCollector(get_rain_barrel_manifold())
+    data_collector.start()
     app.run()

@@ -43,7 +43,8 @@ class RainBarrelDataCollector:
         """Collect sensor data."""
         while self._collect_data_thread_stop is False:
             print("Collecting sensor data...")
-            self._distance_cm = randint(15, 30)
-            self.manifold.compute_volume_full(self._distance_cm)
+            self._distance_cm = randint(25, 45)
+            print(f"Mocking a distance of {self._distance_cm}cm")
+            self.manifold.set_volume_by_measurement(self._distance_cm)
             print(self.manifold.print_status)
             sleep(5)
