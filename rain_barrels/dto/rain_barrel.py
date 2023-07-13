@@ -29,7 +29,7 @@ class RainBarrel:
         """
         Returns the volume of the rain barrel in litres
         """
-        return self.volume / 1000
+        return self.total_volume / 1000
 
     def compute_volume_full(self, water_level_cm: float) -> float:
         """

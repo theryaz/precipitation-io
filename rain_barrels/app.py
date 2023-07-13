@@ -9,11 +9,6 @@ app = Quart(__name__)
 app.register_blueprint(rain_barrels, url_prefix="/rain_barrels")
 
 
-@app.route("/")
-async def hello():
-    return "Hello, world!"
-
-
 if __name__ == "__main__":
     data_collector = RainBarrelDataCollector(get_rain_barrel_manifold())
     data_collector.start()
