@@ -2,20 +2,22 @@ from unittest import TestCase
 
 from rain_barrels.dto.manifold import Manifold
 from rain_barrels.dto.rain_barrel import RainBarrel
+from rain_barrels.dto.distance_sensor import DistanceSensor
 
 
 class TestManifold(TestCase):
     def setUp(self) -> None:
         self.rain_barrel1 = RainBarrel(
-            diameter=36,
-            height=24,
+            diameter=55,
+            height=95,
         )
         self.rain_barrel2 = RainBarrel(
-            diameter=36,
-            height=24,
+            diameter=55,
+            height=95,
         )
         self.manifold = Manifold(
-            rain_barrels=[self.rain_barrel1, self.rain_barrel2], percent_full=50
+            distance_sensor=DistanceSensor(dead_zone_cm=10, offset_cm=10),
+            rain_barrels=[self.rain_barrel1, self.rain_barrel2]
         )
         return super().setUp()
 
@@ -27,20 +29,20 @@ class TestManifold(TestCase):
         )
 
     def test_volume_litres(self):
-        self.assertAlmostEqual(self.manifold.total_volume_litres, 48.85, 1)
+        self.assertAlmostEqual(self.manifold.total_volume_litres, 451.4, 1)
 
-    def test_available_water_litres_full(self):
-        self.manifold.percent_full = 100
-        self.assertAlmostEqual(self.manifold.available_water_litres, 48.85, 1)
+    def test_current_volume_litres_full(self):
+        self.manifold.set_volume_by_measurement(10)
+        self.assertAlmostEqual(self.manifold.current_volume_litres, 451.4, 1)
 
-    def test_available_water_high(self):
-        self.manifold.percent_full = 88
-        self.assertAlmostEqual(self.manifold.available_water_litres, 42.99, 1)
+    def test_current_volume_litres_high(self):
+        self.manifold.set_volume_by_measurement(18)
+        self.assertAlmostEqual(self.manifold.current_volume_litres, 413.39, 1)
 
-    def test_available_water_low(self):
-        self.manifold.percent_full = 23
-        self.assertAlmostEqual(self.manifold.available_water_litres, 11.23, 1)
+    def test_current_volume_litres_low(self):
+        self.manifold.set_volume_by_measurement(66)
+        self.assertAlmostEqual(self.manifold.current_volume_litres, 185.31, 1)
 
-    def test_available_water_empty(self):
-        self.manifold.percent_full = 0
-        self.assertAlmostEqual(self.manifold.available_water_litres, 0, 1)
+    def test_current_volume_litres_empty(self):
+        self.manifold.set_volume_by_measurement(105)
+        self.assertAlmostEqual(self.manifold.current_volume_litres, 0, 1)
