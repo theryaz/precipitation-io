@@ -10,12 +10,16 @@ _RAIN_BARRELS = Manifold(
     distance_sensor=DistanceSensor(offset_cm=30, dead_zone_cm=25),
     rain_barrels=[
         RainBarrel(
-            diameter=22,
-            height=32,
+            diameter=2.54,
+            height=95,
         ),
         RainBarrel(
-            diameter=22,
-            height=32,
+            diameter=55,
+            height=95,
+        ),
+        RainBarrel(
+            diameter=55,
+            height=95,
         ),
     ],
     current_volume_litres=0,
