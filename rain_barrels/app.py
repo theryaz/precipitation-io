@@ -18,7 +18,7 @@ app.register_blueprint(rain_barrels, url_prefix="/rain_barrels")
 def cleanup():
     print("Cleaning up threads...")
     data_collector.stop()
-    data_collector.stop()
+    LCDDisplay.stop()
 
 
 if __name__ == "__main__":
