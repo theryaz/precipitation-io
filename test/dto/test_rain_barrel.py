@@ -12,7 +12,7 @@ class TestRainBarrel(TestCase):
         return super().setUp()
 
     def test_volume(self):
-        self.assertAlmostEqual(self.rain_barrel.volume, 24429.02, 1)
+        self.assertAlmostEqual(self.rain_barrel.total_volume, 24429.02, 1)
 
     def test_volume_litres(self):
-        self.assertAlmostEqual(self.rain_barrel.volume_litres(), 24.4, 1)
+        self.assertAlmostEqual(self.rain_barrel.volume_litres, 24.4, 1)
