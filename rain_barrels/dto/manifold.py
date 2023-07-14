@@ -11,7 +11,7 @@ class Manifold:
     current_volume_litres: float = 0
 
     @property
-    def volume(self):
+    def total_volume(self):
         """
         The total available volume of the manifold in cubic cm
         """
@@ -19,7 +19,7 @@ class Manifold:
 
     @property
     def total_volume_litres(self):
-        return self.volume / 1000
+        return self.total_volume / 1000
 
     @property
     def percent_full(self):

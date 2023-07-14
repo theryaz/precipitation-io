@@ -1,5 +1,5 @@
 from quart import Quart
-from util.mock_hardware_modules import mock_hardware_modules
+from rain_barrels.util.mock_hardware_modules import mock_hardware_modules
 mock_hardware_modules()
 
 from rain_barrels.controllers.rain_barrels_controller import rain_barrels

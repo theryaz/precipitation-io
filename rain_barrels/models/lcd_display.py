@@ -1,4 +1,4 @@
-import drivers
+from rain_barrels.drivers import Lcd
 from threading import Thread
 from time import sleep
 from datetime import datetime
@@ -8,7 +8,7 @@ class _LCDDisplay():
     _thread: Thread = None
     _thread_stop: bool = False
 
-    display = drivers.Lcd()
+    display = Lcd()
     
     display_text: list[str,str] = ["Hello World!", "I am a display!"]
     
@@ -47,3 +47,6 @@ class _LCDDisplay():
             self._thread = None
             
 LCDDisplay = _LCDDisplay()
+"""
+Singleton instance of the LCD Display.
+"""

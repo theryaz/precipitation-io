@@ -23,8 +23,8 @@ class TestManifold(TestCase):
 
     def test_volume(self):
         self.assertAlmostEqual(
-            self.manifold.volume,
-            self.rain_barrel1.volume + self.rain_barrel2.volume,
+            self.manifold.total_volume,
+            self.rain_barrel1.total_volume + self.rain_barrel2.total_volume,
             1,
         )
 
