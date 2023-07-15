@@ -1,7 +1,7 @@
-FROM alexberkovich/alpine-python39:0.4.0
+FROM arm64v8/python:3.11-alpine
 
 WORKDIR /app
 
 COPY . .
 
-CMD [ "python", "rain_barrels/app.py"]
+ENTRYPOINT [ "python", "rain_barrels/app.py"]
