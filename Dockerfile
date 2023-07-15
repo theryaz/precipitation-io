@@ -6,4 +6,4 @@ RUN pip install quart
 
 COPY . .
 
-CMD [ "python rain_barrels/app.py"]
+CMD [ "python app.py"]
