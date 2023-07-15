@@ -15,10 +15,14 @@ class _LCDDisplay():
     def _default_text(self):
         return ["Hello World!", self._current_time()]
     
-    def _write(self):
+    def _write(self, display_text: list[str,str] = None):
         '''
         Write to the display, only 16 chars and two lines
         '''
+        if display_text is None:
+            self._display_text = self._default_text()
+        else:
+            self._display_text = display_text
         self.display.lcd_display_string(self.display_text[0], 1)
         self.display.lcd_display_string(self.display_text[1], 2)
     
@@ -27,9 +31,9 @@ class _LCDDisplay():
         return now.strftime("%H:%M:%S")
     
     def _run(self):
-        while True:
-            sleep(1)
+        while not self._thread_stop:
             self._write()
+            sleep(1)
     
     def start(self):
         if self._thread is None:
