@@ -25,11 +25,19 @@ jobs:
       - name: Test with pytest
         run: |
           poetry run pytest
-      - name: Publish Docker
-        uses: elgohr/Publish-Docker-Github-Action@v5
+      
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build :latest
+        run: docker build -t theryaz/precipitation-io:latest .
+
+      - name: Push to docker hub :latest
+        uses: actions-hub/docker@master
         with:
-          name: theryaz/precipitation-io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          args: push ${GITHUB_REPOSITORY}:latest
 
 
