@@ -1,8 +1,10 @@
-FROM arm32v7/python:3.11-alpine
+FROM python:3.12.0b4-slim-bullseye
 
 WORKDIR /app
 
-COPY . .
-COPY .venv .venv
+RUN pip install poetry
+RUN poetry config virtualenvs.create true
 
-ENTRYPOINT [ "python", "rain_barrels/app.py"]
+COPY . .
+
+CMD [ "poetry run python rain_barrels/app.py"]
