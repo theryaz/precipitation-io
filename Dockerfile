@@ -5,6 +5,4 @@ WORKDIR /app
 COPY . .
 COPY .venv .venv
 
-RUN ls -la
-
 ENTRYPOINT [ "python", "rain_barrels/app.py"]
