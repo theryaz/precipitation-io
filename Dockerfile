@@ -2,10 +2,9 @@ FROM python:3.10-slim-bullseye
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install build-essential -y
-RUN apt-get install python3-rpi.gpio python3-smbus -y
+RUN apt-get update && apt-get install build-essential python-dev -y
 
-RUN pip install quart
+RUN pip install quart RPi.GPIO smbus
 
 COPY . .
 
