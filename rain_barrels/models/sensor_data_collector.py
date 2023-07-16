@@ -41,7 +41,7 @@ class RainBarrelDataCollector:
 
     def _collect_data(self):
         """Collect sensor data."""
-        while self._collect_data_thread_stop is False:
+        while not self._collect_data_thread_stop:
             print("Collecting sensor data...")
             self._distance_cm = randint(25, 45)
             print(f"Mocking a distance of {self._distance_cm}cm")

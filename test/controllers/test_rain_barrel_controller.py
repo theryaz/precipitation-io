@@ -1,6 +1,6 @@
 from unittest import IsolatedAsyncioTestCase, mock
 
-from rain_barrels.app import app
+from app import app
 from rain_barrels.dto.manifold import Manifold
 from rain_barrels.dto.rain_barrel import RainBarrel
 from rain_barrels.dto.distance_sensor import DistanceSensor
