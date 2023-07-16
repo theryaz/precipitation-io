@@ -8,7 +8,7 @@
 			"name": "Quart Run",
 			"type": "python",
 			"request": "launch",
-			"program": "${workspaceFolder}/rain_barrels/app.py",
+			"program": "${workspaceFolder}/app.py",
 			"console": "integratedTerminal",
 			"justMyCode": true
 		}
