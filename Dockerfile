@@ -2,9 +2,7 @@ FROM python:3.12.0b4-slim-bullseye
 
 WORKDIR /app
 
-RUN pip install poetry
-RUN poetry config virtualenvs.create false
-RUN poetry install --no-dev
+RUN pip install quart
 
 COPY . .
 
