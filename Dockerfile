@@ -2,7 +2,7 @@ FROM python:3.12.0b4-slim-bullseye
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install build-essential python-dev -y
+RUN apt-get update && apt-get install build-essential -y
 
 RUN pip install quart
 
