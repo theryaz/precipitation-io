@@ -1,12 +1,12 @@
 from rain_barrels.dto.distance_sensor import DistanceSensor
-from rain_barrels.dto.manifold import Manifold
+from rain_barrels.dto.reservoir import Reservoir
 from rain_barrels.dto.rain_barrel import RainBarrel
 
 """
-In-memory representation of a physical rain barrel manifold.
+In-memory representation of a physical rain barrel reservoir.
 """
 
-_RAIN_BARRELS = Manifold(
+_RESERVOIR = Reservoir(
     distance_sensor=DistanceSensor(offset_cm=30, dead_zone_cm=25),
     rain_barrels=[
         RainBarrel(
@@ -27,11 +27,11 @@ _RAIN_BARRELS = Manifold(
 
 
 def set_percent_full(percent_full: int):
-    _RAIN_BARRELS.percent_full = percent_full
+    _RESERVOIR.percent_full = percent_full
 
 
-def get_rain_barrel_manifold() -> Manifold:
+def get_rain_barrel_reservoir() -> Reservoir:
     """
-    Return the current rain barrel manifold in-memory representation.
+    Return the current rain barrel reservoir in-memory representation.
     """
-    return _RAIN_BARRELS
+    return _RESERVOIR
