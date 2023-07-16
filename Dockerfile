@@ -11,4 +11,4 @@ RUN pip install rpi-gpio \
 
 COPY . .
 
-CMD [ "/usr/local/bin/python app.py"]
+CMD [ "/usr/local/bin/python /app/app.py"]
