@@ -16,7 +16,7 @@ class UltrasonicSensorDataCollector:
 
     _collect_data_thread: Thread = None
     _collect_data_thread_stop: bool = False
-    _polling_rate: int = 5
+    _polling_rate: int = 1
 
     _distance_cm: float = 0
 
