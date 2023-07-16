@@ -5,7 +5,7 @@ from rain_barrels.util.mock_hardware_modules import mock_hardware_modules
 if not is_raspberry_pi_env():
     mock_hardware_modules()
 
-from RPi.GPIO import GPIO
+import RPi.GPIO as GPIO
 
 from rain_barrels.controllers.rain_barrels_controller import rain_barrels
 from rain_barrels.models.rain_barrel_reservoir import get_rain_barrel_reservoir
