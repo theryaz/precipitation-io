@@ -1,10 +1,15 @@
 import sys
 from unittest.mock import MagicMock
 
+IS_PI = None
+
 def is_raspberry_pi_env() -> bool:
+    global IS_PI
+    if IS_PI is not None:
+        return IS_PI
     try:
         import RPi.GPIO as gpio
-        is_pi = True
+        IS_PI = True
     except (ImportError, RuntimeError):
-        is_pi = False
-    return is_pi
+        IS_PI = False
+    return IS_PI

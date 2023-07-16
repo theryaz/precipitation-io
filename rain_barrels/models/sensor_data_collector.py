@@ -1,20 +1,26 @@
+from os import getenv
 from random import randint
 from threading import Thread
 from time import sleep
 
 from rain_barrels.dto.manifold import Manifold
+from rain_barrels.drivers.ultrasonic_sensor_dev import UltrasonicSensorDevice
 
+TRIG_PIN = getenv("TRIG_PIN") or 38
+ECHO_PIN = getenv("ECHO_PIN") or 40
 
-class RainBarrelDataCollector:
+class UltrasonicSensorDataCollector:
     """Collects sensor data from the rain barrel."""
 
     _collect_data_thread: Thread = None
     _collect_data_thread_stop: bool = False
+    _polling_rate: int = 5
 
     _distance_cm: float = 0
 
     def __init__(self, rain_barrel_manifold: Manifold):
         self.manifold = rain_barrel_manifold
+        self.sensor = UltrasonicSensorDevice(TRIG_PIN, ECHO_PIN)
 
     @property
     def sensor_data(self):
@@ -42,9 +48,8 @@ class RainBarrelDataCollector:
     def _collect_data(self):
         """Collect sensor data."""
         while not self._collect_data_thread_stop:
-            print("Collecting sensor data...")
-            self._distance_cm = randint(25, 45)
-            print(f"Mocking a distance of {self._distance_cm}cm")
+            self._distance_cm = self.sensor.get_measurement()
+            print(f"Reading distance of {self._distance_cm}cm")
             self.manifold.set_volume_by_measurement(self._distance_cm)
             print(self.manifold.print_status)
-            sleep(5)
+            sleep(self._polling_rate)
