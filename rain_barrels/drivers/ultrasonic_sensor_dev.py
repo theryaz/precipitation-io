@@ -10,6 +10,7 @@ class UltrasonicSensorDevice():
     def __init__(self, trig_pin: int, echo_pin: int):
         self._trig_pin = trig_pin
         self._echo_pin = echo_pin
+        self._setup_gpio_pins()
 
     def _setup_gpio_pins(self):
         '''
@@ -19,6 +20,7 @@ class UltrasonicSensorDevice():
         GPIO.setup(self._trig_pin,GPIO.OUT)
         GPIO.setup(self._echo_pin, GPIO.IN)
         GPIO.output(self._trig_pin,0)
+        GPIO.setup(self._echo_pin, 0)
 
     def get_measurement(self) -> float:
         '''
@@ -30,20 +32,24 @@ class UltrasonicSensorDevice():
             return randint(25, 95)
             
         # Send 20us pulse to trigger
+        print(f"Sending Pulse")
         GPIO.output(self._trig_pin, 1)
         sleep(0.00002)
         GPIO.output(self._trig_pin, 0)
 
+        print(f"Waiting for echo to go high")
         # Wait for echo to go high
         while GPIO.input(self._echo_pin) == 0:
             pass
         # Set the time, and wait for echo to go low
+        print(f"Waiting for echo to go low")
         start = time()
         while GPIO.input(self._echo_pin) == 1:
             pass
         # Stop the time once we get the echo back
         stop = time()
 
+        print(f"Returning result")
         # Calculate the distance in cm
         # Speed of sound is 343 m/s, or 34300 cm/s
         # Half the distance is 343 / 2 = 171.5 * the time it took

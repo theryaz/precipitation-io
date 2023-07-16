@@ -7,8 +7,8 @@ from rain_barrels.dto.reservoir import Reservoir
 from rain_barrels.drivers.ultrasonic_sensor_dev import UltrasonicSensorDevice
 from rain_barrels.models.lcd_display import _LCDDisplay
 
-TRIG_PIN = getenv("TRIG_PIN") or 38
-ECHO_PIN = getenv("ECHO_PIN") or 40
+TRIG_PIN = getenv("TRIG_PIN") or 40
+ECHO_PIN = getenv("ECHO_PIN") or 38
 
 
 class UltrasonicSensorDataCollector:
@@ -51,6 +51,7 @@ class UltrasonicSensorDataCollector:
     def _collect_data(self):
         """Collect sensor data."""
         while not self._collect_data_thread_stop:
+            sleep(self._polling_rate)
             self._distance_cm = self.sensor.get_measurement()
             print(f"Reading distance of {self._distance_cm}cm")
             self.reservoir.set_volume_by_measurement(self._distance_cm)
@@ -59,4 +60,3 @@ class UltrasonicSensorDataCollector:
                 f"Distance: {self._distance_cm}cm",
                 f"{self.reservoir.print_status_short}",
             ]
-            sleep(self._polling_rate)
