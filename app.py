@@ -12,7 +12,7 @@ from rain_barrels.models.rain_barrel_manifold import get_rain_barrel_manifold
 from rain_barrels.models.sensor_data_collector import UltrasonicSensorDataCollector
 from rain_barrels.models.lcd_display import LCDDisplay
 
-data_collector = UltrasonicSensorDataCollector(get_rain_barrel_manifold())
+data_collector = UltrasonicSensorDataCollector(get_rain_barrel_manifold(), LCDDisplay)
 
 app = Quart(__name__)
 

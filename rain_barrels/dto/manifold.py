@@ -33,6 +33,10 @@ class Manifold:
     def print_status(self):
         return f"Manifold Status: {round(self.percent_full, 2)}% full ({round(self.current_volume_litres, 2)}/{round(self.total_volume_litres)} L)"
 
+    @property
+    def print_status_short(self):
+        return f"{round(self.percent_full, 2)}% - {round(self.current_volume_litres, 2)}L"
+
     def set_volume_by_measurement(self, measurement_cm: float):
         water_level_cm = self.distance_sensor.get_water_level(
             measurement_cm, self.height

@@ -5,6 +5,7 @@ from time import sleep
 
 from rain_barrels.dto.manifold import Manifold
 from rain_barrels.drivers.ultrasonic_sensor_dev import UltrasonicSensorDevice
+from rain_barrels.models.lcd_display import _LCDDisplay
 
 TRIG_PIN = getenv("TRIG_PIN") or 38
 ECHO_PIN = getenv("ECHO_PIN") or 40
@@ -18,9 +19,10 @@ class UltrasonicSensorDataCollector:
 
     _distance_cm: float = 0
 
-    def __init__(self, rain_barrel_manifold: Manifold):
+    def __init__(self, rain_barrel_manifold: Manifold, lcd_display: _LCDDisplay):
         self.manifold = rain_barrel_manifold
         self.sensor = UltrasonicSensorDevice(TRIG_PIN, ECHO_PIN)
+        self.display = lcd_display
 
     @property
     def sensor_data(self):
@@ -52,4 +54,8 @@ class UltrasonicSensorDataCollector:
             print(f"Reading distance of {self._distance_cm}cm")
             self.manifold.set_volume_by_measurement(self._distance_cm)
             print(self.manifold.print_status)
+            self.display.display_text = [
+                f"Distance: {self._distance_cm}cm",
+                f"{self.manifold.print_status_short}"
+            ]
             sleep(self._polling_rate)
