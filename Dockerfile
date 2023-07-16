@@ -5,8 +5,9 @@ WORKDIR /app
 RUN apt-get update && apt-get install build-essential -y
 
 RUN pip install poetry
-RUN poetry install
 
 COPY . .
+
+RUN poetry install
 
 CMD [ "/bin/bash python /app/app.py"]
