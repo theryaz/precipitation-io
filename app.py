@@ -8,11 +8,11 @@ if not is_raspberry_pi_env():
 from RPi.GPIO import GPIO
 
 from rain_barrels.controllers.rain_barrels_controller import rain_barrels
-from rain_barrels.models.rain_barrel_manifold import get_rain_barrel_manifold
+from rain_barrels.models.rain_barrel_reservoir import get_rain_barrel_reservoir
 from rain_barrels.models.sensor_data_collector import UltrasonicSensorDataCollector
 from rain_barrels.models.lcd_display import LCDDisplay
 
-data_collector = UltrasonicSensorDataCollector(get_rain_barrel_manifold(), LCDDisplay)
+data_collector = UltrasonicSensorDataCollector(get_rain_barrel_reservoir(), LCDDisplay)
 
 app = Quart(__name__)
 

@@ -4,10 +4,9 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install build-essential -y
 
-RUN pip install quart \
-    && pip install rpi-gpio \
-    && pip install smbus
+RUN pip install poetry
+RUN poetry install
 
 COPY . .
 
-CMD [ "/usr/local/bin/python /app/app.py"]
+CMD [ "/bin/bash python /app/app.py"]

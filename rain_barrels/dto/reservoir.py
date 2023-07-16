@@ -5,7 +5,10 @@ from rain_barrels.dto.rain_barrel import RainBarrel
 
 
 @dataclass
-class Manifold:
+class Reservoir:
+    """
+    A reservoir is a collection of rain barrels that are connected together.
+    """
     distance_sensor: DistanceSensor
     rain_barrels: list[RainBarrel]
     current_volume_litres: float = 0
@@ -13,7 +16,7 @@ class Manifold:
     @property
     def total_volume(self):
         """
-        The total available volume of the manifold in cubic cm
+        The total available volume of the reservoir in cubic cm
         """
         return sum([rain_barrel.total_volume for rain_barrel in self.rain_barrels])
 
@@ -31,7 +34,7 @@ class Manifold:
 
     @property
     def print_status(self):
-        return f"Manifold Status: {round(self.percent_full, 2)}% full ({round(self.current_volume_litres, 2)}/{round(self.total_volume_litres)} L)"
+        return f"reservoir Status: {round(self.percent_full, 2)}% full ({round(self.current_volume_litres, 2)}/{round(self.total_volume_litres)} L)"
 
     @property
     def print_status_short(self):

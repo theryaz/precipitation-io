@@ -3,12 +3,13 @@ from random import randint
 from threading import Thread
 from time import sleep
 
-from rain_barrels.dto.manifold import Manifold
+from rain_barrels.dto.reservoir import Reservoir
 from rain_barrels.drivers.ultrasonic_sensor_dev import UltrasonicSensorDevice
 from rain_barrels.models.lcd_display import _LCDDisplay
 
 TRIG_PIN = getenv("TRIG_PIN") or 38
 ECHO_PIN = getenv("ECHO_PIN") or 40
+
 
 class UltrasonicSensorDataCollector:
     """Collects sensor data from the rain barrel."""
@@ -19,8 +20,8 @@ class UltrasonicSensorDataCollector:
 
     _distance_cm: float = 0
 
-    def __init__(self, rain_barrel_manifold: Manifold, lcd_display: _LCDDisplay):
-        self.manifold = rain_barrel_manifold
+    def __init__(self, rain_barrel_reservoir: Reservoir, lcd_display: _LCDDisplay):
+        self.reservoir = rain_barrel_reservoir
         self.sensor = UltrasonicSensorDevice(TRIG_PIN, ECHO_PIN)
         self.display = lcd_display
 
@@ -52,10 +53,10 @@ class UltrasonicSensorDataCollector:
         while not self._collect_data_thread_stop:
             self._distance_cm = self.sensor.get_measurement()
             print(f"Reading distance of {self._distance_cm}cm")
-            self.manifold.set_volume_by_measurement(self._distance_cm)
-            print(self.manifold.print_status)
+            self.reservoir.set_volume_by_measurement(self._distance_cm)
+            print(self.reservoir.print_status)
             self.display.display_text = [
                 f"Distance: {self._distance_cm}cm",
-                f"{self.manifold.print_status_short}"
+                f"{self.reservoir.print_status_short}",
             ]
             sleep(self._polling_rate)
