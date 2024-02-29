@@ -1,9 +1,11 @@
-FROM python:3.12.0b4-slim-bullseye
+FROM python:3.10-slim-bullseye
 
 WORKDIR /app
 
-RUN pip install quart
+RUN apt-get update && apt-get install build-essential python-dev -y
+
+RUN pip install quart RPi.GPIO smbus
 
 COPY . .
 
-CMD [ "/usr/local/bin/python app.py"]
+CMD [ "/bin/bash python /app/app.py"]
