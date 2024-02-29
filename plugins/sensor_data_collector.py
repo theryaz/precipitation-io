@@ -3,9 +3,9 @@ from random import randint
 from threading import Thread
 from time import sleep
 
-from rain_barrels.dto.reservoir import Reservoir
+from plugins.lcd_display import _LCDDisplay
 from rain_barrels.drivers.ultrasonic_sensor_dev import UltrasonicSensorDevice
-from rain_barrels.models.lcd_display import _LCDDisplay
+from rain_barrels.dto.reservoir import Reservoir
 
 TRIG_PIN = getenv("TRIG_PIN") or 40
 ECHO_PIN = getenv("ECHO_PIN") or 38
