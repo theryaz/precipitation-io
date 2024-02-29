@@ -1,11 +1,11 @@
-from functools import lru_cache
 from math import pi
 
+
 class Tank:
-    def __init__(
-        self,
-    ):
-        pass
+    def __init__(self, diameter: float, height: float):
+        self.diameter = diameter
+        self.height = height
+        self._capacity_cm2 = self._compute_capacity_cm2(self.height)
 
     diameter: float
     """
@@ -18,7 +18,6 @@ class Tank:
 
     _capacity_cm2: float = None
 
-    @lru_cache
     def compute_volume_full(self, water_level_cm: float) -> float:
         """
         Returns the volume of the rain barrel in litres given the level of the water
@@ -39,9 +38,7 @@ class Tank:
         """
         Returns the volume of the rain barrel in litres
         """
-        if not self._capacity_cm2:
-            self.capacity_cm2 = self._compute_capacity_cm2(self.height)
-        return self.capacity_cm2 / 1000
+        return self._capacity_cm2 / 1000
 
     def _compute_capacity_cm2(self, height: int) -> float:
         """

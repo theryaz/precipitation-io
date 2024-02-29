@@ -1,4 +1,4 @@
-from drivers.ultrasonic_sensor_dev import UltrasonicSensorDevice
+from rain_barrels.drivers.ultrasonic_sensor_dev import UltrasonicSensorDevice
 
 class VolumeSensor:
     def __init__(self, sensor: UltrasonicSensorDevice, offset_cm: float, dead_zone_cm: float):

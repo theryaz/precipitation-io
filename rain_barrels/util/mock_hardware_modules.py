@@ -1,6 +1,7 @@
 import sys
 from unittest.mock import MagicMock
 
+
 def mock_hardware_modules():
     """
     Call when running without real hardware to mock the IO modules
