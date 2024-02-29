@@ -44,6 +44,7 @@ class Resevoir:
 
     @property
     def print_status(self):
+        self._measure_current_volume()
         return f"{self.name} Resevoir Status: {round(self.percent_full, 2)}% full ({round(self.current_volume_litres, 2)}/{round(self.total_capacity_litres)} L)"
 
     @property
@@ -70,9 +71,9 @@ class Resevoir:
         the water should be considered full in this case since we can't get an accurate reading, but know it's close to full.
 
         """
-        if distance_cm <= self.dead_zone_cm:
+        if distance_cm <= self.volume_sensor.dead_zone_cm:
             return height  # Assume barrel is full
-        return height - max(0, distance_cm - self.offset_cm)
+        return height - max(0, distance_cm - self.volume_sensor.offset_cm)
 
     def _measure_current_volume(self):
         water_level_cm = self._get_water_level(

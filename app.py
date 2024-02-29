@@ -24,4 +24,4 @@ resevoir = Resevoir(
 )
 
 
-print("Resevoir Status: ", resevoir.print_status)
+print(resevoir.print_status)
