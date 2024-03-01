@@ -1,5 +1,6 @@
 from rain_barrels.util.is_raspberry_pi_env import is_raspberry_pi_env
 from rain_barrels.util.mock_hardware_modules import mock_hardware_modules
+from rain_barrels.util.logger import LOGGER
 
 if not is_raspberry_pi_env():
     mock_hardware_modules()
@@ -24,4 +25,7 @@ resevoir = Resevoir(
 )
 
 
+
 print(resevoir.print_status)
+from rain_barrels.util.load_plugins import load_plugins
+load_plugins(resevoir, LOGGER)

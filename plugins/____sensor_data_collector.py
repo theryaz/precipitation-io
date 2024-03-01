@@ -3,7 +3,7 @@ from random import randint
 from threading import Thread
 from time import sleep
 
-from plugins.lcd_display import _LCDDisplay
+from rain_barrels.plugins.____lcd_display import _LCDDisplay
 from rain_barrels.drivers.ultrasonic_sensor_dev import UltrasonicSensorDevice
 from rain_barrels.dto.reservoir import Reservoir
 

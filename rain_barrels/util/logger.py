@@ -15,7 +15,7 @@ LOGGER = logging.getLogger('rain_barrels')
 LOGGER.setLevel(logging.DEBUG)
 
 # create a file handler and set level to debug
-file_handler = logging.FileHandler(LOG_FILE)
+file_handler = logging.FileHandler(LOG_DIR + "/" + LOG_FILE)
 file_handler.setLevel(logging.DEBUG)
 
 # create a console handler and set level to info
