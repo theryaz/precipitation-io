@@ -13,8 +13,8 @@ class TestResvoir(TestCase):
 		self.mock_switch = Mock()
 		self.pump = Pump("My pump", self.mock_switch)
 		self.tanks = [
-			Tank(60, 125),
-			Tank(60, 125),
+			Tank("tank1" , 60, 125),
+			Tank("tank2", 60, 125),
 		]
 
 	def test_calculates_capacity(self):

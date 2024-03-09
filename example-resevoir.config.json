@@ -1,0 +1,26 @@
+{
+	"__comment__": "Rename this file to resevoir.config.json and update as needed",
+	"name": "Example Resevoir",
+	"ultrasonic_sensor": {
+		"offset_cm": 5,
+		"dead_zone_cm": 30,
+		"trigger_pin": 40,
+		"echo_pin": 38
+	},
+	"pump_switch": {
+		"pin": null
+	},
+	"tanks": [
+		{
+			"name": "Tank 1",
+			"diameter_cm": 60,
+			"height_cm": 120
+		}
+	],
+	"plugins":{
+		"plugin_example": {
+			"enabled": true,
+			"polling_rate": 3
+		}
+	}
+}

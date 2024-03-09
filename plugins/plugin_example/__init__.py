@@ -1,7 +1,4 @@
-from .plugin_example import PluginExample, PluginExampleConfig
+from .plugin_example import PluginExample
 
-def register(resevoir, logger):
-    logger.debug("PluginTest registered")
-    logger.debug(f"PluginTest resevoir: {resevoir.print_status_short}")
-    config = PluginExampleConfig(polling_rate=1)
+def register(resevoir, config, logger):
     PluginExample(config, resevoir, logger).start()

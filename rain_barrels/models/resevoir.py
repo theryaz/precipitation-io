@@ -48,7 +48,7 @@ class Resevoir:
 
     @property
     def height(self):
-        return self.tanks[0].height
+        return self.tanks[0].height_cm
 
     @property
     def print_status(self):
