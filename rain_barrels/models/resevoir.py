@@ -52,12 +52,12 @@ class Resevoir:
 
     @property
     def print_status(self):
-        return f"{self.name} Resevoir Status: {round(self.percent_full, 2)}% full ({round(self._current_volume_litres, 2)}/{round(self.total_capacity_litres)} L)"
+        return f"{self.name} Resevoir Status: {round(self.percent_full, 2)}% full ({round(self.current_volume_litres, 2)}/{round(self.total_capacity_litres)} L)"
 
     @property
     def print_status_short(self):
         return (
-            f"{round(self.percent_full, 2)}% - {round(self._current_volume_litres, 2)}L"
+            f"{round(self.percent_full, 2)}% - {round(self.current_volume_litres, 2)}L"
         )
 
     def _get_water_level(self) -> float:

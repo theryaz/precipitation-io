@@ -44,7 +44,7 @@ def load_resevoir_config_from_file(file_path="./resevoir.config.json", use_mock_
 				)
 				pump_switch = SwitchDevice(
 						name="Pump",
-						pin=resevoir_config["pump"]["pin"]
+						pin=resevoir_config["pump_switch"]["pin"]
 				)
 
 			return (Resevoir(
