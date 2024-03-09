@@ -1,19 +1,13 @@
 from threading import Thread
 from time import sleep
 
-from typing import NamedTuple
-
-
-class PluginExampleConfig(NamedTuple):
-    polling_rate: int = 1
-
-
 class PluginExample:
     _tick_thread: Thread = None
     _tick_thread_stop: bool = False
 
-    def __init__(self, config: PluginExampleConfig, resevoir, logger):
-        self.config = config
+    def __init__(self, config: dict, resevoir, logger):
+        print(f"PluginExample loaded with config: {config}")
+        self.config = config or {}
         self.resevoir = resevoir
         self.logger = logger
 
@@ -31,5 +25,5 @@ class PluginExample:
 
     def _tick(self):
         while not self._tick_thread_stop:
-            sleep(self.config.polling_rate)
+            sleep(self.config.get("polling_rate", 1))
             print(self.resevoir.print_status)

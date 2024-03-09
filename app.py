@@ -1,31 +1,20 @@
-from rain_barrels.util.is_raspberry_pi_env import is_raspberry_pi_env
-from rain_barrels.util.mock_hardware_modules import mock_hardware_modules
+import os
+from rain_barrels.util.use_hardware import is_raspberry_pi_env
+from rain_barrels.util.load_resevoir_config import load_resevoir_config_from_file
 from rain_barrels.util.logger import LOGGER
 
-if not is_raspberry_pi_env():
-    mock_hardware_modules()
+resevoir = None
+plugin_config = None
 
-from rain_barrels.util.mock_hardware_env import get_mock_hardware_environment
-import RPi.GPIO as GPIO
+def main():
+    global resevoir
+    global plugin_config
+    file_path = os.getenv("CONFIG_FILE", "./resevoir.config.json")
+    mock_hardware = os.getenv("MOCK") == "true" or not is_raspberry_pi_env()
+    resevoir, plugin_config = load_resevoir_config_from_file(file_path=file_path, use_mock_env=mock_hardware)
 
-from rain_barrels.models.pump import Pump
-from rain_barrels.models.resevoir import Resevoir
-from rain_barrels.models.tank import Tank
-from rain_barrels.models.volume_sensor import VolumeSensor
-
-mock_env = get_mock_hardware_environment()
-
-resevoir = Resevoir(
-    name="Ryan's Resevoir",
-    volume_sensor=VolumeSensor(offset_cm=5,
-                               dead_zone_cm=30,
-                               sensor=mock_env["ultrasonic_sensor_device"]),
-    pump=Pump("Pump", mock_env["pump"]),
-    tanks=[Tank(35, 120), Tank(35, 120)]
-)
-
-
+main()
 
 print(resevoir.print_status)
 from rain_barrels.util.load_plugins import load_plugins
-load_plugins(resevoir, LOGGER)
+load_plugins(resevoir, plugin_config, LOGGER, exclude=[])

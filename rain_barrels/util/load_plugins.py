@@ -5,10 +5,11 @@ from rain_barrels.util.logger import LOGGER
 from rain_barrels.models.resevoir import Resevoir
 
 
-def load_plugins(resevoir: Resevoir, logger, exclude=None):
+def load_plugins(resevoir: Resevoir, plugin_config: dict, logger, exclude=None):
     """
     Load all plugins in the rain_barrels/plugins directory
     """
+    LOGGER.info("Loading plugins...")
     exclude = ["plugin_example"] if exclude is None else exclude
     plugin_dir = os.path.join(os.path.dirname(__file__), "../..", "plugins")
     for file in os.listdir(plugin_dir):
@@ -20,4 +21,4 @@ def load_plugins(resevoir: Resevoir, logger, exclude=None):
         ):
             LOGGER.debug(f"Loading plugin: {file}")
             plugin = import_module(f"plugins.{file}")
-            plugin.register(resevoir, logger)
+            plugin.register(resevoir, plugin_config.get(file, None), logger)
