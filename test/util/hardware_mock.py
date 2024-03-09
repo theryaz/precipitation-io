@@ -1,0 +1,2 @@
+from rain_barrels.util.mock_hardware_modules import mock_hardware_modules
+mock_hardware_modules()

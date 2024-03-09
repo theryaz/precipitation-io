@@ -1,32 +1,31 @@
-from quart import Quart
 from rain_barrels.util.is_raspberry_pi_env import is_raspberry_pi_env
 from rain_barrels.util.mock_hardware_modules import mock_hardware_modules
+from rain_barrels.util.logger import LOGGER
 
 if not is_raspberry_pi_env():
     mock_hardware_modules()
 
+from rain_barrels.util.mock_hardware_env import get_mock_hardware_environment
 import RPi.GPIO as GPIO
 
-from rain_barrels.controllers.rain_barrels_controller import rain_barrels
-from rain_barrels.models.rain_barrel_reservoir import get_rain_barrel_reservoir
-from rain_barrels.models.sensor_data_collector import UltrasonicSensorDataCollector
-from rain_barrels.models.lcd_display import LCDDisplay
+from rain_barrels.models.pump import Pump
+from rain_barrels.models.resevoir import Resevoir
+from rain_barrels.models.tank import Tank
+from rain_barrels.models.volume_sensor import VolumeSensor
 
-data_collector = UltrasonicSensorDataCollector(get_rain_barrel_reservoir(), LCDDisplay)
+mock_env = get_mock_hardware_environment()
 
-app = Quart(__name__)
-
-app.register_blueprint(rain_barrels, url_prefix="/rain_barrels")
-
-@app.after_serving
-def cleanup():
-    print("Cleaning up threads...")
-    data_collector.stop()
-    LCDDisplay.stop()
-    GPIO.cleanup()
+resevoir = Resevoir(
+    name="Ryan's Resevoir",
+    volume_sensor=VolumeSensor(offset_cm=5,
+                               dead_zone_cm=30,
+                               sensor=mock_env["ultrasonic_sensor_device"]),
+    pump=Pump("Pump", mock_env["pump"]),
+    tanks=[Tank(35, 120), Tank(35, 120)]
+)
 
 
-if __name__ == "__main__":
-    data_collector.start()
-    LCDDisplay.start()
-    app.run()
+
+print(resevoir.print_status)
+from rain_barrels.util.load_plugins import load_plugins
+load_plugins(resevoir, LOGGER)

@@ -11,6 +11,6 @@ def is_raspberry_pi_env() -> bool:
         import RPi.GPIO as gpio
         IS_PI = True
     except (ImportError, RuntimeError) as e:
-        print(f"WARNING: Failed ti import RPi.GPIO Using mock hardware modules. {e}")
+        print(f"WARNING: Failed to import RPi.GPIO Using mock hardware modules. {e}")
         IS_PI = False
     return IS_PI
