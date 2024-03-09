@@ -17,4 +17,4 @@ main()
 
 print(resevoir.print_status)
 from rain_barrels.util.load_plugins import load_plugins
-load_plugins(resevoir, plugin_config, LOGGER, exclude=[])
+load_plugins(resevoir, plugin_config, LOGGER)

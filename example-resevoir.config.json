@@ -19,6 +19,7 @@
 	],
 	"plugins":{
 		"plugin_example": {
+			"enabled": true,
 			"polling_rate": 3
 		}
 	}
