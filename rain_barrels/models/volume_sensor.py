@@ -16,5 +16,10 @@ class VolumeSensor:
     The minimum distance the sensor can read accurately. Lower distances than this should be ignored.
     """
 
-    def measure(self) -> int:
-        return self.sensor.get_measurement()
+    def measure(self) -> float:
+        raw_distance = self.sensor.get_measurement()
+        surface_distance = raw_distance - self.offset_cm
+        if surface_distance <= self.dead_zone_cm:
+            # Any measurement closer than the deadzone is unreliable so treat it as 0cm distance, or 100% full
+            return 0
+        return surface_distance

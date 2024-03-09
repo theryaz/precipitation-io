@@ -17,7 +17,7 @@ class Resevoir:
     name: str
     volume_sensor: VolumeSensor
     tanks: list[Tank]
-    current_volume_litres: int = 0
+    _current_volume_litres: int = 0
 
     def turn_pump_on(self):
         LOGGER.info("Pump turned on")
@@ -35,8 +35,16 @@ class Resevoir:
         return sum([tank.capacity_litres for tank in self.tanks])
 
     @property
+    def current_volume_litres(self):
+        """
+        The total available capacity of the resevoir in litres
+        """
+        self._measure_current_volume()
+        return self._current_volume_litres
+
+    @property
     def percent_full(self):
-        return (self.current_volume_litres / self.total_capacity_litres) * 100
+        return (self._current_volume_litres / self.total_capacity_litres) * 100
 
     @property
     def height(self):
@@ -44,16 +52,15 @@ class Resevoir:
 
     @property
     def print_status(self):
-        self._measure_current_volume()
-        return f"{self.name} Resevoir Status: {round(self.percent_full, 2)}% full ({round(self.current_volume_litres, 2)}/{round(self.total_capacity_litres)} L)"
+        return f"{self.name} Resevoir Status: {round(self.percent_full, 2)}% full ({round(self._current_volume_litres, 2)}/{round(self.total_capacity_litres)} L)"
 
     @property
     def print_status_short(self):
         return (
-            f"{round(self.percent_full, 2)}% - {round(self.current_volume_litres, 2)}L"
+            f"{round(self.percent_full, 2)}% - {round(self._current_volume_litres, 2)}L"
         )
 
-    def _get_water_level(self, distance_cm: float, height: float) -> float:
+    def _get_water_level(self) -> float:
         """
         Returns the water level in centimeters
         _. <- Sensor
@@ -71,18 +78,14 @@ class Resevoir:
         the water should be considered full in this case since we can't get an accurate reading, but know it's close to full.
 
         """
-        if distance_cm <= self.volume_sensor.dead_zone_cm:
-            return height  # Assume barrel is full
-        return height - max(0, distance_cm - self.volume_sensor.offset_cm)
+        return self.height - max(0, self.volume_sensor.measure())
 
     def _measure_current_volume(self):
-        water_level_cm = self._get_water_level(
-            self.volume_sensor.measure(), self.height
-        )
-        self.current_volume_litres = sum(
+        water_level_cm = self._get_water_level()
+        self._current_volume_litres = sum(
             [tank.compute_volume_full(water_level_cm) for tank in self.tanks]
         )
         return {
-            "volume_litres": self.current_volume_litres,
+            "volume_litres": self._current_volume_litres,
             "percent_full": self.percent_full,
         }

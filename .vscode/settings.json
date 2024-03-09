@@ -1,8 +1,7 @@
 {
 	"[python]": {
-		"editor.defaultFormatter": "ms-python.black-formatter"
+		"editor.defaultFormatter": "ms-python.python"
 	},
-	"python.formatting.provider": "none",
 	"python.envFile": "${workspaceFolder}/.env",
 	"python.testing.unittestArgs": [
 		"-v",
