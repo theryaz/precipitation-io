@@ -39,7 +39,7 @@ def load_resevoir_config_from_file(file_path="./resevoir.config.json", use_mock_
 			else:
 				ultrasonic_sensor_device = UltrasonicSensorDevice(
 						name="Volume Sensor",
-						trigger_pin=resevoir_config["ultrasonic_sensor"]["trigger_pin"],
+						trig_pin=resevoir_config["ultrasonic_sensor"]["trigger_pin"],
 						echo_pin=resevoir_config["ultrasonic_sensor"]["echo_pin"]
 				)
 				pump_switch = SwitchDevice(
