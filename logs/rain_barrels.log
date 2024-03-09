@@ -70,3 +70,13 @@ Plugin config: {'plugin_example': {'enabled': True, 'polling_rate': 3}}
 Loading plugin: plugin_example
 Loading plugins...
 Loading plugin: plugin_example
+Error loading resevoir config: [Errno 2] No such file or directory: './resevoir.config.json'
+Using mock resevoir: [Errno 2] No such file or directory: './resevoir.config.json'
+Error loading resevoir config: [Errno 2] No such file or directory: './resevoir.config.json'
+Using mock resevoir: [Errno 2] No such file or directory: './resevoir.config.json'
+Error loading resevoir config: [Errno 2] No such file or directory: './resevoir.config.json'
+Using mock resevoir: [Errno 2] No such file or directory: './resevoir.config.json'
+Error loading resevoir config: [Errno 2] No such file or directory: './resevoir.config.json'
+Using mock resevoir: [Errno 2] No such file or directory: './resevoir.config.json'
+Loading plugins...
+Plugin plugin_example is disabled
