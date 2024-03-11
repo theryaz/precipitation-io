@@ -2,4 +2,5 @@
 .pytest*
 *.cpython*
 __pycache__
-resevoir.config.json
+*resevoir.config.json
+logs

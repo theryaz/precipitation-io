@@ -10,14 +10,14 @@ from rain_barrels.drivers.switch_device import SwitchDevice
 
 def _default_mock_resevoir():
 	mock_env = get_mock_hardware_environment()
-	return Resevoir(
+	return (Resevoir(
 			name="Default Mock Resevoir",
 			volume_sensor=VolumeSensor(offset_cm=5,
 																dead_zone_cm=30,
 																sensor=mock_env["ultrasonic_sensor_device"]),
 			pump=Pump("Pump", mock_env["pump"]),
-			tanks=[Tank(35, 120), Tank(35, 120)]
-	)
+			tanks=[Tank("tank1", 35, 120), Tank("tank2", 35, 120)]
+	), {})
 
 def load_resevoir_config_from_file(file_path="./resevoir.config.json", use_mock_env: bool = True) -> Resevoir:
 		resevoir_config = None
@@ -39,12 +39,13 @@ def load_resevoir_config_from_file(file_path="./resevoir.config.json", use_mock_
 			else:
 				ultrasonic_sensor_device = UltrasonicSensorDevice(
 						name="Volume Sensor",
-						trigger_pin=resevoir_config["ultrasonic_sensor"]["trigger_pin"],
-						echo_pin=resevoir_config["ultrasonic_sensor"]["echo_pin"]
+						trig_pin=resevoir_config["ultrasonic_sensor"]["trigger_pin"],
+						echo_pin=resevoir_config["ultrasonic_sensor"]["echo_pin"],
+						debug=resevoir_config["ultrasonic_sensor"].get("debug", False)
 				)
 				pump_switch = SwitchDevice(
 						name="Pump",
-						pin=resevoir_config["pump"]["pin"]
+						pin=resevoir_config["pump_switch"]["pin"]
 				)
 
 			return (Resevoir(
