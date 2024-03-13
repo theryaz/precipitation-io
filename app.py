@@ -1,4 +1,5 @@
 import os
+import sys
 from rain_barrels.util.use_hardware import is_raspberry_pi_env
 from rain_barrels.util.load_resevoir_config import load_resevoir_config_from_file
 from rain_barrels.util.logger import LOGGER

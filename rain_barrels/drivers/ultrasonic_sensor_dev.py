@@ -24,7 +24,6 @@ class UltrasonicSensorDevice:
         """
         Sets GPIO to board mode, sets the TRIG and ECHO pins, and sets TRIG to output 0
         """
-        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self._trig_pin, GPIO.OUT)
         GPIO.setup(self._echo_pin, GPIO.IN)
         GPIO.output(self._trig_pin, 0)

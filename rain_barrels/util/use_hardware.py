@@ -6,3 +6,7 @@ from rain_barrels.util.mock_hardware_modules import mock_hardware_modules
 from rain_barrels.util.mock_hardware_env import get_mock_hardware_environment
 if not is_raspberry_pi_env():
     mock_hardware_modules()
+
+import RPi.GPIO as GPIO
+GPIO.cleanup()
+GPIO.setmode(GPIO.BOARD)

@@ -18,6 +18,13 @@ class Resevoir:
     volume_sensor: VolumeSensor
     tanks: list[Tank]
     _current_volume_litres: int = 0
+    
+    def toggle_pump(self):
+        LOGGER.debug(f"[Resevoir {self.name}] Toggling Pump")
+        if self.pump.is_on:
+            self.turn_pump_off()
+        else:
+            self.turn_pump_on()
 
     def turn_pump_on(self):
         LOGGER.info("Pump turned on")
