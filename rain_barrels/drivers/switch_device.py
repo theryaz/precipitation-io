@@ -10,9 +10,11 @@ class SwitchDevice:
     def __init__(self, name: str, pin: int):
         self.name = name
         self.pin = pin
+        self._setup_gpio_pins()
         
     def _setup_gpio_pins(self):
         self._pin_state = False
+        GPIO.setup(self.pin, GPIO.OUT)
         self.turn_off()
         
     @property

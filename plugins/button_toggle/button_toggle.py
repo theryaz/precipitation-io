@@ -1,5 +1,6 @@
 from threading import Thread
-from rain_barrels.util.use_hardware import GPIO
+import rain_barrels.util.use_hardware
+import RPi.GPIO as GPIO
 
 class ButtonToggle:
     _tick_thread: Thread = None
@@ -10,6 +11,7 @@ class ButtonToggle:
         self.config = config or {}
         self.resevoir = resevoir
         self.logger = logger
+        self._setup_pins()
     
     def _setup_pins(self):
         self.pin = self.config["pin"]
@@ -33,6 +35,6 @@ class ButtonToggle:
         while not self._tick_thread_stop:
             pass
         
-    def _button_pressed(self):
+    def _button_pressed(self, channel):
         self.logger.debug(f"[ButtonToggle] Button pressed!")
         self.resevoir.toggle_pump()
