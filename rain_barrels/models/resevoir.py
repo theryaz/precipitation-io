@@ -19,6 +19,10 @@ class Resevoir:
     tanks: list[Tank]
     _current_volume_litres: int = 0
     
+    @property
+    def pump_is_on(self):
+        return self.pump.is_on
+    
     def toggle_pump(self):
         LOGGER.debug(f"[Resevoir {self.name}] Toggling Pump")
         if self.pump.is_on:

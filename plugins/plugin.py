@@ -1,11 +1,11 @@
 from threading import Thread
-from time import sleep
+from rain_barrels.models.resevoir import Resevoir
 
 class Plugin:
     _run_thread: Thread = None
     _run_thread_stop: bool = False
 
-    def __init__(self, config: dict, resevoir, logger):
+    def __init__(self, config: dict, resevoir: Resevoir, logger):
         self.config = config or {}
         self.resevoir = resevoir
         self.logger = logger
