@@ -10,7 +10,7 @@ def load_plugins(irrigation_system: IrrigationSystem, plugin_config: dict, logge
     Load all plugins in the rain_barrels/plugins directory
     """
     LOGGER.info("Loading plugins...")
-    plugin_dir = os.path.join(os.path.dirname(__file__), "../..", "plugins")
+    plugin_dir = os.path.join(os.path.dirname(__file__), "../", "plugins")
     for file in os.listdir(plugin_dir):
         plugin_path = os.path.join(plugin_dir, file)
         config = plugin_config.get(file, { "enabled": False })
@@ -26,5 +26,5 @@ def load_plugins(irrigation_system: IrrigationSystem, plugin_config: dict, logge
             continue
     
         LOGGER.debug(f"Loading plugin: {file}")
-        plugin = import_module(f"plugins.{file}")
+        plugin = import_module(f"rain_barrels.plugins.{file}")
         plugin.register(irrigation_system, config, logger)
