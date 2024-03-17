@@ -4,7 +4,7 @@ from .tank import Tank
 from .pump import Pump
 
 
-class Resevoir:
+class IrrigationSystem:
 
     def __init__(
         self, name: str, volume_sensor: VolumeSensor, pump: Pump, tanks: list[Tank] = []
@@ -24,7 +24,7 @@ class Resevoir:
         return self.pump.is_on
     
     def toggle_pump(self):
-        LOGGER.debug(f"[Resevoir {self.name}] Toggling Pump")
+        LOGGER.debug(f"[irrigation_system {self.name}] Toggling Pump")
         if self.pump.is_on:
             self.turn_pump_off()
         else:
@@ -41,14 +41,14 @@ class Resevoir:
     @property
     def total_capacity_litres(self):
         """
-        The total available capacity of the resevoir in litres
+        The total available capacity of the irrigation_system in litres
         """
         return sum([tank.capacity_litres for tank in self.tanks])
 
     @property
     def current_volume_litres(self):
         """
-        The total available capacity of the resevoir in litres
+        The total available capacity of the irrigation_system in litres
         """
         self._measure_current_volume()
         return self._current_volume_litres
@@ -63,7 +63,7 @@ class Resevoir:
 
     @property
     def print_status(self):
-        return f"{self.name} Resevoir Status: {round(self.percent_full, 2)}% full ({round(self.current_volume_litres, 2)}/{round(self.total_capacity_litres)} L)"
+        return f"{self.name} irrigation_system Status: {round(self.percent_full, 2)}% full ({round(self.current_volume_litres, 2)}/{round(self.total_capacity_litres)} L)"
 
     @property
     def print_status_short(self):

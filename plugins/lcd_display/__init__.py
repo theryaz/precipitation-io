@@ -1,4 +1,4 @@
 from .lcd_display import LCDDisplay
 
-def register(resevoir, config, logger):
-    LCDDisplay(config, resevoir, logger).start()
+def register(irrigation_system, config, logger):
+    LCDDisplay(config, irrigation_system, logger).start()

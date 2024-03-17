@@ -1,4 +1,4 @@
 from .button_toggle import ButtonToggle
 
-def register(resevoir, config, logger):
-    ButtonToggle(config, resevoir, logger)
+def register(irrigation_system, config, logger):
+    ButtonToggle(config, irrigation_system, logger)

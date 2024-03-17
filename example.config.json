@@ -1,6 +1,6 @@
 {
-	"__comment__": "Rename this file to resevoir.config.json and update as needed",
-	"name": "Example Resevoir",
+	"__comment__": "Rename this file to config.json and update as needed",
+	"name": "Example irrigation_system",
 	"ultrasonic_sensor": {
 		"offset_cm": 5,
 		"dead_zone_cm": 30,

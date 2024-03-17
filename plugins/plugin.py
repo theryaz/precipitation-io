@@ -1,13 +1,13 @@
 from threading import Thread
-from rain_barrels.models.resevoir import Resevoir
+from rain_barrels.models.irrigation_system import IrrigationSystem
 
 class Plugin:
     _run_thread: Thread = None
     _run_thread_stop: bool = False
 
-    def __init__(self, config: dict, resevoir: Resevoir, logger):
+    def __init__(self, config: dict, irrigation_system: IrrigationSystem, logger):
         self.config = config or {}
-        self.resevoir = resevoir
+        self.irrigation_system = irrigation_system
         self.logger = logger
 
     def start(self):
