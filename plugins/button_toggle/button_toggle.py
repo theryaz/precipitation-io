@@ -1,4 +1,3 @@
-from threading import Thread
 from ..plugin import Plugin
 import rain_barrels.util.use_hardware
 import RPi.GPIO as GPIO
