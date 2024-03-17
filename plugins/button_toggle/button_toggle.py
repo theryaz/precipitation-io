@@ -4,8 +4,8 @@ import RPi.GPIO as GPIO
 
 class ButtonToggle(Plugin):
     
-    def __init__(self, config: dict, resevoir, logger):
-        super().__init__(config, resevoir, logger)
+    def __init__(self, config: dict, irrigation_system, logger):
+        super().__init__(config, irrigation_system, logger)
         self._setup_pins()
     
     def _setup_pins(self):
@@ -16,4 +16,4 @@ class ButtonToggle(Plugin):
         
     def _button_pressed(self, channel):
         self.logger.debug(f"[ButtonToggle] Button pressed!")
-        self.resevoir.toggle_pump()
+        self.irrigation_system.toggle_pump()

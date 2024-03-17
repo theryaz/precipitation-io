@@ -1,4 +1,4 @@
 from .plugin_example import PluginExample
 
-def register(resevoir, config, logger):
-    PluginExample(config, resevoir, logger).start()
+def register(irrigation_system, config, logger):
+    PluginExample(config, irrigation_system, logger).start()

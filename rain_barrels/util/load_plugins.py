@@ -2,10 +2,10 @@ import os
 import importlib.util
 from importlib import import_module
 from rain_barrels.util.logger import LOGGER
-from rain_barrels.models.resevoir import Resevoir
+from rain_barrels.models.irrigation_system import IrrigationSystem
 
 
-def load_plugins(resevoir: Resevoir, plugin_config: dict, logger, exclude=None):
+def load_plugins(irrigation_system: IrrigationSystem, plugin_config: dict, logger, exclude=None):
     """
     Load all plugins in the rain_barrels/plugins directory
     """
@@ -27,4 +27,4 @@ def load_plugins(resevoir: Resevoir, plugin_config: dict, logger, exclude=None):
     
         LOGGER.debug(f"Loading plugin: {file}")
         plugin = import_module(f"plugins.{file}")
-        plugin.register(resevoir, config, logger)
+        plugin.register(irrigation_system, config, logger)

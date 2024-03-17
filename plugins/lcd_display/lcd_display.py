@@ -13,8 +13,8 @@ class LCDDisplay(Plugin):
     display = None
     _display_text: list[str, str] = ["Hello World!", "I am a display!"]
     
-    def __init__(self, config: dict, resevoir, logger):
-        super().__init__(config, resevoir, logger)
+    def __init__(self, config: dict, irrigation_system, logger):
+        super().__init__(config, irrigation_system, logger)
         if is_raspberry_pi_env():
             self.display = Lcd()
         else:
@@ -29,9 +29,9 @@ class LCDDisplay(Plugin):
             sleep(self._refresh_rate)
             
     def _refresh_display_status(self):
-        percent_full = self.resevoir.percent_full
+        percent_full = self.irrigation_system.percent_full
         self._display_text[0] = f"Water Level: {percent_full}%"
-        if self.resevoir.pump_is_on:
+        if self.irrigation_system.pump_is_on:
             self._display_text[1] = "Pump: ON"
         self._display_text[1] = f"{self._current_time()}"
         
