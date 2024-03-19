@@ -18,11 +18,11 @@ class IrrigationSystem:
     volume_sensor: VolumeSensor
     tanks: list[Tank]
     _current_volume_litres: int = 0
-    
+
     @property
     def pump_is_on(self):
         return self.pump.is_on
-    
+
     def toggle_pump(self):
         LOGGER.debug(f"[irrigation_system {self.name}] Toggling Pump")
         if self.pump.is_on:
@@ -38,6 +38,16 @@ class IrrigationSystem:
         LOGGER.info("Pump turned off")
         self.pump.turn_off()
 
+    def get_current_volume_litres(self):
+        """
+        The total available capacity of the irrigation_system in litres
+        """
+        self._measure_current_volume()
+        return self._current_volume_litres
+
+    def get_percent_full(self):
+        return (self.get_current_volume_litres() / self.total_capacity_litres) * 100
+
     @property
     def total_capacity_litres(self):
         """
@@ -46,30 +56,16 @@ class IrrigationSystem:
         return sum([tank.capacity_litres for tank in self.tanks])
 
     @property
-    def current_volume_litres(self):
-        """
-        The total available capacity of the irrigation_system in litres
-        """
-        self._measure_current_volume()
-        return self._current_volume_litres
-
-    @property
-    def percent_full(self):
-        return (self._current_volume_litres / self.total_capacity_litres) * 100
-
-    @property
     def height(self):
         return self.tanks[0].height_cm
 
     @property
     def print_status(self):
-        return f"{self.name} irrigation_system Status: {round(self.percent_full, 2)}% full ({round(self.current_volume_litres, 2)}/{round(self.total_capacity_litres)} L)"
+        return f"{self.name} irrigation_system Status: {round(self.get_percent_full(), 2)}% full ({round(self.get_current_volume_litres(), 2)}/{round(self.total_capacity_litres)} L)"
 
     @property
     def print_status_short(self):
-        return (
-            f"{round(self.percent_full, 2)}% - {round(self.current_volume_litres, 2)}L"
-        )
+        return f"{round(self.get_percent_full(), 2)}% - {round(self.get_current_volume_litres(), 2)}L"
 
     def _get_water_level(self) -> float:
         """
@@ -96,7 +92,4 @@ class IrrigationSystem:
         self._current_volume_litres = sum(
             [tank.compute_volume_full(water_level_cm) for tank in self.tanks]
         )
-        return {
-            "volume_litres": self._current_volume_litres,
-            "percent_full": self.percent_full,
-        }
+        return self._current_volume_litres

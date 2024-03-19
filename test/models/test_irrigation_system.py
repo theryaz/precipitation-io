@@ -120,7 +120,7 @@ class TestIrrigationSystem(TestCase):
         """
         sut = self._setup_irrigation_system(1, 2, 3, pct_full=pct_full)
 
-        current_volume_litres = sut.current_volume_litres
+        current_volume_litres = sut.get_current_volume_litres()
 
         self.assertAlmostEqual(current_volume_litres, expected_volume_litres, 3)
         self.assertUltrasonicSensorPulseSent(1, 2)
