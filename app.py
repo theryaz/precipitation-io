@@ -11,8 +11,7 @@ def main():
     global irrigation_system
     global plugin_config
     file_path = os.getenv("CONFIG_FILE", "./config.json")
-    mock_hardware = os.getenv("MOCK") == "true" or not is_raspberry_pi_env()
-    irrigation_system, plugin_config = load_irrigation_system_config_from_file(file_path=file_path, use_mock_env=mock_hardware)
+    irrigation_system, plugin_config = load_irrigation_system_config_from_file(file_path=file_path)
 
 main()
 

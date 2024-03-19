@@ -36,30 +36,25 @@ class UltrasonicSensorDevice:
         self._debug_log(
             f"[{self.name} UltrasonicSensorDevice] getting measurement {HAS_REAL_HARDWARE}",
         )
-        if not HAS_REAL_HARDWARE:
-            self._debug_log(
-                f"[{self.name} UltrasonicSensorDevice] RPi env not detected, mocking Ultrasonic Sensor result",
-            )
-            return randint(25, 95)
 
         # Send 20us pulse to trigger
         self._debug_log(f"[{self.name} UltrasonicSensorDevice] Sending Pulse")
-        GPIO.output(self._trig_pin, 1)
+        GPIO.output(self._trig_pin, GPIO.HIGH)
         sleep(0.00002)
-        GPIO.output(self._trig_pin, 0)
+        GPIO.output(self._trig_pin, GPIO.LOW)
 
         self._debug_log(
             f"[{self.name} UltrasonicSensorDevice] Waiting for echo to go high"
         )
         # Wait for echo to go high
-        while GPIO.input(self._echo_pin) == 0:
+        while GPIO.input(self._echo_pin) == GPIO.LOW:
             pass
         # Set the time, and wait for echo to go low
         self._debug_log(
             f"[{self.name} UltrasonicSensorDevice] Waiting for echo to go low"
         )
         start = time()
-        while GPIO.input(self._echo_pin) == 1:
+        while GPIO.input(self._echo_pin) == GPIO.HIGH:
             pass
         # Stop the time once we get the echo back
         stop = time()
@@ -68,5 +63,7 @@ class UltrasonicSensorDevice:
         # Speed of sound is 343 m/s, or 34300 cm/s
         # Half the distance is 343 / 2 = 171.5 * the time it took
         distance_cm = (stop - start) * 17150
-        self._debug_log(f"[{self.name} UltrasonicSensorDevice] Returning result: {distance_cm}")
+        self._debug_log(
+            f"[{self.name} UltrasonicSensorDevice] Returning result: {distance_cm}"
+        )
         return distance_cm
