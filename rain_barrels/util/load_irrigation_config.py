@@ -15,7 +15,7 @@ def _default_mock_irrigation_system():
 			volume_sensor=VolumeSensor(offset_cm=5,
 																dead_zone_cm=30,
 																sensor=mock_env["ultrasonic_sensor_device"]),
-			pump=Pump("Pump", mock_env["pump"]),
+			pump=Pump("Pump", mock_env["switch"]),
 			tanks=[Tank("tank1", 35, 120), Tank("tank2", 35, 120)]
 	), {})
 
@@ -35,7 +35,7 @@ def load_irrigation_system_config_from_file(file_path="./config.json", use_mock_
 			if use_mock_env:
 				mock_env = get_mock_hardware_environment()
 				ultrasonic_sensor_device = mock_env["ultrasonic_sensor_device"]
-				pump_switch = mock_env["pump"]
+				pump_switch = mock_env["switch"]
 			else:
 				ultrasonic_sensor_device = UltrasonicSensorDevice(
 						name="Volume Sensor",

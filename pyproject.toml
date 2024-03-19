@@ -8,8 +8,8 @@ packages = [{include = "rain_barrels"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-quart = "^0.18.4"
 schedule = "^1.2.1"
+flask = "^3.0.2"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -6,13 +6,13 @@ class Scheduler(Plugin):
     
     def __init__(self, config: dict, irrigation_system, logger):
         super().__init__(config, irrigation_system, logger)
-        print(f"Scheduler loaded with config: {config}")
+        self.logger.debug(f"[Scheduler] loaded with config: {config}")
         self._setup_scheduler()
         
     def _setup_scheduler(self):
         devmode_schedule = self.config.get("devmode_schedule", False)
         if devmode_schedule:
-            print(f"Scheduler loaded running in devmode. Pump should run for 5 seconds every minute.")
+            self.logger.debug(f"[Scheduler] loaded running in devmode. Pump should run for 5 seconds every minute.")
             schedule.every(1).minutes.do(self._run_pump_for_seconds, 5)
         else:
             daily_run_time = self.config.get("daily_run_time", "07:30")
