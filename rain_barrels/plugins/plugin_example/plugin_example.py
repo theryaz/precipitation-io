@@ -10,4 +10,4 @@ class PluginExample(Plugin):
     def _run(self):
         while not self.should_stop:
             sleep(self.config.get("polling_rate", 1))
-            print(self.irrigation_system.print_status)
+            print("[PluginExample]", self.irrigation_system.print_status)

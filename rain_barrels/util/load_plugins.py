@@ -21,10 +21,10 @@ def load_plugins(irrigation_system: IrrigationSystem, plugin_config: dict, logge
             # Not a loadable plugin
             continue
 
-        if not config.get("enabled", False):
+        if config.get("enabled", False):
+            LOGGER.debug(f"Loading plugin: {file}")
+            plugin = import_module(f"rain_barrels.plugins.{file}")
+            plugin.register(irrigation_system, config, logger)
+        else:
             LOGGER.info(f"Plugin {file} is disabled")
-            continue
     
-        LOGGER.debug(f"Loading plugin: {file}")
-        plugin = import_module(f"rain_barrels.plugins.{file}")
-        plugin.register(irrigation_system, config, logger)
