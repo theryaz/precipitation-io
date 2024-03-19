@@ -25,4 +25,7 @@ class Plugin:
     @property
     def should_stop(self):
         return self._run_thread_stop
+    
+    def _run(self):
+        pass
 
