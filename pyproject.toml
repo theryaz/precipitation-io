@@ -10,6 +10,7 @@ packages = [{include = "rain_barrels"}]
 python = "^3.9"
 schedule = "^1.2.1"
 flask = "^3.0.2"
+flask-cors = "^4.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
