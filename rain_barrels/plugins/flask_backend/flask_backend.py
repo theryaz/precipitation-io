@@ -1,5 +1,6 @@
 from ..plugin import Plugin
-import flask
+from flask import Flask
+from flask_cors import CORS
 
 
 class FlaskBackend(Plugin):
@@ -7,8 +8,8 @@ class FlaskBackend(Plugin):
     def __init__(self, config: dict, irrigation_system, logger):
         super().__init__(config, irrigation_system, logger)
         self.logger.debug(f"ApiBackend loaded with config: {config}")
-        # Setup flask app
-        self.app = flask.Flask(self.config.get("name", __name__))
+        self.app = Flask(self.config.get("name", __name__))
+        CORS(self.app)
         self.app.add_url_rule("/status", view_func=self.get_status, methods=["GET"])
         self.app.add_url_rule(
             "/turn_pump_on", view_func=self.turn_pump_on, methods=["POST"]
