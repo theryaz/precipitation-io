@@ -1,5 +1,5 @@
 from ..plugin import Plugin
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 
 
@@ -10,6 +10,7 @@ class FlaskBackend(Plugin):
         self.logger.debug(f"ApiBackend loaded with config: {config}")
         self.app = Flask(self.config.get("name", __name__))
         CORS(self.app)
+        self.app.before_request(self.password_auth)
         self.app.add_url_rule("/status", view_func=self.get_status, methods=["GET"])
         self.app.add_url_rule(
             "/turn_pump_on", view_func=self.turn_pump_on, methods=["POST"]
@@ -17,6 +18,11 @@ class FlaskBackend(Plugin):
         self.app.add_url_rule(
             "/turn_pump_off", view_func=self.turn_pump_off, methods=["POST"]
         )
+
+    def password_auth(self):
+        if self.config.get("api_key") is not None:
+            if request.headers.get("Authorization") != self.config.get("api_key"):
+                return "Unauthorized", 401
 
     def _run(self):
         self.app.run(
