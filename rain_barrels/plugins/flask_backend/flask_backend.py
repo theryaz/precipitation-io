@@ -9,7 +9,7 @@ class FlaskBackend(Plugin):
         super().__init__(config, irrigation_system, logger)
         self.logger.debug(f"ApiBackend loaded with config: {config}")
         self.app = Flask(self.config.get("name", __name__))
-        CORS(self.app)
+        CORS(self.app, supports_credentials=True)
         self.app.before_request(self.password_auth)
         self.app.add_url_rule("/status", view_func=self.get_status, methods=["GET"])
         self.app.add_url_rule(
@@ -20,6 +20,10 @@ class FlaskBackend(Plugin):
         )
 
     def password_auth(self):
+        # Allow CORS preflight requests
+        if request.method == "OPTIONS":
+            return
+
         if self.config.get("api_key") is not None:
             if request.headers.get("Authorization") != self.config.get("api_key"):
                 return "Unauthorized", 401
